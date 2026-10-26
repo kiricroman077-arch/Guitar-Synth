@@ -4,7 +4,7 @@ Plug in a guitar, play single notes, and the plugin plays a synth on the note yo
 It listens to the pitch, snaps it to the nearest note and resynthesizes it from scratch.
 None of the original guitar sound gets through at 100% wet.
 
-**Stage 1 (current):** monophonic tracking, snap to note, basic waveforms. There's no custom interface yet.
+**Current version:** monophonic tracking with noise rejection, 8 oscillator types, sub oscillator, filter, sustain and pick accent. There's no custom interface yet.
 
 ## Install
 
@@ -25,11 +25,48 @@ None of the original guitar sound gets through at 100% wet.
 
 ## Controls
 
+**Tracking**
+
 | Control | What it does |
 |---|---|
-| Waveform | Saw, Square or Sine |
-| Octave | Shift the synth −2 to +2 octaves |
+| Input Threshold | How loud the guitar must be to count. Raise it if noise triggers notes; lower it if quiet notes get missed |
+| Noise Rejection | How strict the plugin is about what counts as a note. Higher = ignores string touches, scratches and muting noise better, but notes start slightly later and very soft notes may be skipped |
 | Snap to Note | On: locks to the nearest note. Off: follows your exact pitch (bends, vibrato) |
-| Input Threshold | How loud the guitar must be to trigger the synth. Raise it if noise triggers notes; lower it if quiet notes get missed |
+
+**Sound**
+
+| Control | What it does |
+|---|---|
+| Waveform | Saw, Square, Pulse (PWM), Triangle, Sine, Supersaw, FM, Hard Sync |
+| Character | Changes per waveform; see below |
+| FM Ratio | FM only: the modulator's pitch ratio. 1 = warm, 2 = hollow/clarinet, 3+ = bell-like and metallic |
+| Octave | Shift the synth −2 to +2 octaves |
+| Sub Osc | Adds a square wave one octave below |
+| Filter Cutoff | Brightness. Lower = darker, rounder |
+| Filter Resonance | Adds a peak at the cutoff, from smooth to squelchy and whistling |
+
+What **Character** does for each waveform:
+
+| Waveform | Character |
+|---|---|
+| Saw, Square | Nothing |
+| Pulse (PWM) | Pulse width: 0% = square, higher = thinner and nasal |
+| Triangle, Sine | Wavefolding: 0% = pure, higher = brighter and more metallic |
+| Supersaw | Detune: 0% = single saw, higher = wide, trance-style chorus |
+| FM | FM depth: 0% = pure sine, higher = brighter and more aggressive |
+| Hard Sync | Sync amount: higher = the classic tearing, screaming sync lead |
+
+**Dynamics**
+
+| Control | What it does |
+|---|---|
+| Sustain | 0% = fades exactly like the string. 100% = stays at full volume until you stop the note |
+| Pick Accent | How much each pick attack punches: a short boost in volume and brightness |
+| Release | How long the synth fades after the note ends |
+
+**Output**
+
+| Control | What it does |
+|---|---|
 | Synth Level | Volume of the synth |
 | Dry/Wet | 0% = only guitar, 100% = only synth |

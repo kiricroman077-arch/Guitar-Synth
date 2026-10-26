@@ -113,6 +113,11 @@ impl PitchTracker {
         }
     }
 
+    /// Time between analyses, in seconds.
+    pub fn hop_seconds(&self) -> f32 {
+        self.hop as f32 / self.dec_rate
+    }
+
     pub fn reset(&mut self) {
         self.lp1.reset();
         self.lp2.reset();
