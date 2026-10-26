@@ -3,19 +3,16 @@ name: Build plugin
 on:
   push:
   workflow_dispatch:
+    inputs:
+      mac:
+        description: "Also build for Mac"
+        type: boolean
+        default: false
 
 jobs:
-  build:
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - name: Windows
-            os: windows-latest
-          - name: Mac-AppleSilicon
-            os: macos-latest
-    runs-on: ${{ matrix.os }}
-    name: ${{ matrix.name }}
+  windows:
+    name: Windows
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
@@ -24,5 +21,22 @@ jobs:
         run: cargo xtask bundle guitar_synth --release
       - uses: actions/upload-artifact@v4
         with:
-          name: GuitarSynth-${{ matrix.name }}
+          name: GuitarSynth-Windows
+          path: target/bundled/*.vst3
+
+  # Mac machines on GitHub are often busy, so the Mac version only builds when
+  # asked: Actions > Build plugin > Run workflow > tick "Also build for Mac".
+  mac:
+    name: Mac-AppleSilicon
+    if: ${{ inputs.mac }}
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Build VST3
+        run: cargo xtask bundle guitar_synth --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GuitarSynth-Mac-AppleSilicon
           path: target/bundled/*.vst3

@@ -8,8 +8,8 @@ None of the original guitar sound gets through at 100% wet.
 
 ## Install
 
-1. Open the **Actions** tab, click the newest green run, and scroll down to **Artifacts**.
-2. Download **GuitarSynth-Windows** (or **GuitarSynth-Mac-AppleSilicon**) and unzip it.
+1. Open the **Actions** tab, click the newest run (top of the list), and scroll down to **Artifacts**.
+2. Download **GuitarSynth-Windows** and unzip it. For Mac: **Actions → Build plugin → Run workflow**, tick **Also build for Mac**, then download **GuitarSynth-Mac-AppleSilicon** from that run.
 3. Copy `Guitar Synth.vst3` to:
    - **Windows:** `C:\Program Files\Common Files\VST3\`
    - **Mac:** `/Library/Audio/Plug-Ins/VST3/`, then in Terminal run
