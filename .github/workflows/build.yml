@@ -1,0 +1,28 @@
+name: Build plugin
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows
+            os: windows-latest
+          - name: Mac-AppleSilicon
+            os: macos-latest
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.name }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Build VST3
+        run: cargo xtask bundle guitar_synth --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GuitarSynth-${{ matrix.name }}
+          path: target/bundled/*.vst3

@@ -1,0 +1,19 @@
+[package]
+name = "guitar_synth"
+version = "0.1.0"
+edition = "2021"
+description = "Guitar-to-synth: tracks the pitch of a guitar and resynthesizes it"
+license = "GPL-3.0-or-later"
+
+[workspace]
+members = ["xtask"]
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[dependencies]
+nih_plug = { git = "https://github.com/robbert-vdh/nih-plug.git" }
+
+[profile.release]
+lto = "thin"
+strip = "symbols"
